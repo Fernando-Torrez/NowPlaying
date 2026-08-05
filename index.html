@@ -9,13 +9,12 @@
 
 /* ============================================================
    CONFIGURA AQUÍ TU CONTENIDO
-   1. --photo-url        -> URL o ruta de tu foto (será la "portada")
-   2. En el <script> abajo, cambia AUDIO_SRC por el link a tu mp3
-   3. Cambia el título de la canción, artista y nombre de "Fer" y "Mel"
+   1. --photo-url        -> URL o ruta de tu foto principal (portada por defecto)
+   2. TRACKS (abajo en el <script>) -> tus canciones
    ============================================================ */
 
 :root{
-  --photo-url: url("mel.jpeg");
+  --photo-url: url("mel 2.jpeg");
 
   --bg-a: #0b0a0c;
   --bg-b: #141014;
@@ -116,7 +115,7 @@ body.is-playing .ambient{ filter: blur(90px) saturate(1.6) brightness(0.75); opa
   position:relative;
   z-index:2;
   width:100%;
-  max-width:420px;
+  max-width:360px;
 }
 .glow-ring::before{
   content:"";
@@ -162,9 +161,9 @@ body.is-playing .glow-ring::after{ opacity:0.65; filter: blur(28px); }
   background: var(--card);
   backdrop-filter: blur(22px) saturate(1.6);
   -webkit-backdrop-filter: blur(22px) saturate(1.6);
-  border-radius:36px;
-  padding:34px 28px 28px;
-  box-shadow: 0 30px 70px rgba(0,0,0,0.65);
+  border-radius:32px;
+  padding:28px 24px 22px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.6);
   animation: cardIn 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 @keyframes cardIn{
@@ -178,11 +177,11 @@ body.is-playing .glow-ring::after{ opacity:0.65; filter: blur(28px); }
   gap:9px;
   font-family:'Quicksand', sans-serif;
   font-weight:700;
-  font-size:0.78rem;
-  letter-spacing:1.2px;
+  font-size:0.72rem;
+  letter-spacing:1px;
   text-transform:uppercase;
   color:var(--accent-deep);
-  margin-bottom:20px;
+  margin-bottom:16px;
 }
 
 /* Ecualizador: barras que solo se mueven mientras suena */
@@ -204,7 +203,7 @@ body.is-playing .eq span{ animation: bounce 0.9s ease-in-out infinite; }
   50%{ height:14px; }
 }
 
-/* Portada = su foto, más grande, con brillo pulsante detrás */
+/* Portada = su foto, cuadrada, con brillo pulsante detrás */
 .cover-stage{
   position:relative;
   margin-bottom:24px;
@@ -227,10 +226,10 @@ body.is-playing .cover-glow{ opacity:0.9; animation: pulseGlow 2.4s ease-in-out 
 .cover-wrap{
   position:relative;
   width:100%;
-  aspect-ratio: 4 / 5;
-  border-radius:28px;
+  aspect-ratio: 1 / 1;
+  border-radius:24px;
   overflow:hidden;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.6);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.55);
   border: 3px solid rgba(255,159,187,0.35);
   z-index:1;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
@@ -264,10 +263,10 @@ body.is-playing .cover{ transform: scale(1.1); }
 }
 .meta-text h1{
   font-family:'Quicksand', sans-serif;
-  font-size:1.55rem;
-  font-weight:800;
-  letter-spacing:-0.3px;
-  margin-bottom:5px;
+  font-size:1.3rem;
+  font-weight:700;
+  letter-spacing:-0.2px;
+  margin-bottom:4px;
   color:var(--ink);
   line-height:1.2;
 }
@@ -334,8 +333,8 @@ body.is-playing .cover{ transform: scale(1.1); }
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:26px;
-  margin-top:10px;
+  gap:22px;
+  margin-top:8px;
 }
 .ctrl-btn{
   background:none; border:none; cursor:pointer;
@@ -346,7 +345,7 @@ body.is-playing .cover{ transform: scale(1.1); }
 .ctrl-btn svg{ width:21px; height:21px; display:block; }
 
 .play-btn{
-  width:64px; height:64px;
+  width:56px; height:56px;
   border-radius:50%;
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 55%, var(--lilac) 100%);
   color: #fff;
@@ -357,7 +356,7 @@ body.is-playing .cover{ transform: scale(1.1); }
 }
 .play-btn:hover{ transform: scale(1.07); }
 .play-btn:active{ transform: scale(0.94); }
-.play-btn svg{ width:25px; height:25px; }
+.play-btn svg{ width:22px; height:22px; }
 
 /* Botón y panel de lista de canciones */
 .queue-row{
@@ -453,8 +452,8 @@ body.is-playing .cover{ transform: scale(1.1); }
 /* Nota inferior */
 .footer-note{
   text-align:center;
-  margin-top:24px;
-  font-size:0.78rem;
+  margin-top:18px;
+  font-size:0.74rem;
   color:var(--ink-dim);
   letter-spacing:0.2px;
   font-weight:600;
@@ -505,7 +504,7 @@ body.is-playing .cover{ transform: scale(1.1); }
 
     <div class="meta">
       <div class="meta-text">
-        <h1 id="songTitle">Me Gusta Todo de Tí</h1>
+        <h1 id="songTitle">Me Gusta Todo de Usted</h1>
         <p id="songArtist">Fer &amp; Mel</p>
       </div>
       <button class="like-btn" id="likeBtn" title="Me encanta">♡</button>
@@ -552,10 +551,7 @@ body.is-playing .cover{ transform: scale(1.1); }
 
     <p class="footer-note">Sonando desde el corazón de <strong>Fer</strong> 💕</p>
 
-    <audio id="audio" preload="metadata">
-      <!-- Reemplaza esta ruta por el mp3 de tu canción -->
-      <source src="Me Gusta Todo De T&iacute; - Banda El Recodo (Me Gusta Todo De Ti).mp3" type="audio/mpeg">
-    </audio>
+    <audio id="audio" preload="metadata"></audio>
 
   </div>
 </div>
@@ -565,22 +561,28 @@ body.is-playing .cover{ transform: scale(1.1); }
    Agrega, quita o edita canciones aquí. Cada una necesita:
    - title  -> nombre que se muestra
    - artist -> texto debajo del título (ej. "Fer & Mel")
-   - src    -> nombre del archivo mp3 (debe estar en la misma carpeta)
+   - src    -> nombre EXACTO del archivo mp3 (debe estar subido en la
+               misma carpeta que este HTML, respeta mayúsculas/minúsculas)
    - photo  -> (opcional) si quieres una foto distinta para esa canción.
                Si lo dejas vacío "", usa la foto principal de arriba.
+
+   IMPORTANTE: si una canción "no suena" al elegirla, casi siempre es
+   porque el archivo mp3 todavía no está subido en la misma carpeta,
+   o el nombre no coincide exactamente (revisa mayúsculas, espacios
+   y tildes). Este archivo ahora te avisa en pantalla si eso pasa.
    ==================================================================== */
 const TRACKS = [
   {
     title: "Me Gusta Todo de Usted",
     artist: "Fer & Mel",
     src: "Me Gusta Todo De Tí - Banda El Recodo (Me Gusta Todo De Ti).mp3",
-    photo: "mel.jpeg"
+    photo: "mel 2.jpeg"
   },
   {
     title: "100 Años con Usted Mel",
     artist: "Fer & Mel",
     src: "100.mp3",
-    photo: "mel.jpeg"
+    photo: "mel 2.jpeg"
   }
   // Agrega más así:
   // { title: "Otra canción", artist: "Fer & Mel", src: "otra.mp3", photo: "" },
@@ -596,18 +598,56 @@ const songArtistEl = document.getElementById('songArtist');
 const queueBtn = document.getElementById('queueBtn');
 const queuePanel = document.getElementById('queuePanel');
 const queueList = document.getElementById('queueList');
+const body = document.body;
+const playBtn = document.getElementById('playBtn');
+const playIcon = document.getElementById('playIcon');
+const pauseIcon = document.getElementById('pauseIcon');
+const statusLabel = document.getElementById('statusLabel');
+const bar = document.getElementById('bar');
+const barFill = document.getElementById('barFill');
+const barKnob = document.getElementById('barKnob');
+const curTime = document.getElementById('curTime');
+const durTime = document.getElementById('durTime');
+const likeBtn = document.getElementById('likeBtn');
+const backBtn = document.getElementById('backBtn');
+const fwdBtn = document.getElementById('fwdBtn');
+
+function fmt(sec){
+  if(!isFinite(sec)) return "0:00";
+  const m = Math.floor(sec/60);
+  const s = Math.floor(sec%60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+
+function setPlayingUI(playing){
+  body.classList.toggle('is-playing', playing);
+  playIcon.style.display = playing ? 'none' : 'block';
+  pauseIcon.style.display = playing ? 'block' : 'none';
+  if(!audio.error){
+    statusLabel.textContent = playing ? 'Sonando ahora' : 'En pausa';
+  }
+}
 
 function loadTrack(index, autoplay){
   currentIndex = index;
   const track = TRACKS[index];
   songTitleEl.textContent = track.title;
   songArtistEl.textContent = track.artist;
-  audio.querySelector('source').src = encodeURI(track.src);
+  audio.src = encodeURI(track.src);
   audio.load();
   document.documentElement.style.setProperty('--photo-url', track.photo ? `url("${track.photo}")` : DEFAULT_PHOTO);
   renderQueue();
+  barFill.style.width = '0%';
+  barKnob.style.left = '0%';
+  curTime.textContent = '0:00';
+  durTime.textContent = '0:00';
   if(autoplay){
-    audio.play().catch(() => { statusLabel.textContent = 'Agrega tu mp3 en AUDIO_SRC'; });
+    const playPromise = audio.play();
+    if(playPromise !== undefined){
+      playPromise.catch(() => {
+        statusLabel.textContent = 'No se pudo reproducir "' + track.title + '"';
+      });
+    }
   }
 }
 
@@ -644,41 +684,14 @@ document.addEventListener('click', (e) => {
   if(!queuePanel.contains(e.target) && e.target !== queueBtn){ closeQueue(); }
 });
 
-loadTrack(0, false);
-
-const body = document.body;
-const playBtn = document.getElementById('playBtn');
-const playIcon = document.getElementById('playIcon');
-const pauseIcon = document.getElementById('pauseIcon');
-const statusLabel = document.getElementById('statusLabel');
-const bar = document.getElementById('bar');
-const barFill = document.getElementById('barFill');
-const barKnob = document.getElementById('barKnob');
-const curTime = document.getElementById('curTime');
-const durTime = document.getElementById('durTime');
-const likeBtn = document.getElementById('likeBtn');
-const backBtn = document.getElementById('backBtn');
-const fwdBtn = document.getElementById('fwdBtn');
-
-function fmt(sec){
-  if(!isFinite(sec)) return "0:00";
-  const m = Math.floor(sec/60);
-  const s = Math.floor(sec%60).toString().padStart(2,'0');
-  return `${m}:${s}`;
-}
-
-function setPlayingUI(playing){
-  body.classList.toggle('is-playing', playing);
-  playIcon.style.display = playing ? 'none' : 'block';
-  pauseIcon.style.display = playing ? 'block' : 'none';
-  statusLabel.textContent = playing ? 'Sonando ahora' : 'En pausa';
-}
-
 playBtn.addEventListener('click', () => {
   if(audio.paused){
-    audio.play().catch(() => {
-      statusLabel.textContent = 'Agrega tu mp3 en AUDIO_SRC';
-    });
+    const playPromise = audio.play();
+    if(playPromise !== undefined){
+      playPromise.catch(() => {
+        statusLabel.textContent = 'No se pudo reproducir esta canción';
+      });
+    }
   } else {
     audio.pause();
   }
@@ -689,6 +702,10 @@ audio.addEventListener('pause', () => setPlayingUI(false));
 audio.addEventListener('ended', () => {
   const nextIndex = (currentIndex + 1) % TRACKS.length;
   loadTrack(nextIndex, true);
+});
+audio.addEventListener('error', () => {
+  statusLabel.textContent = 'Archivo no encontrado: revisa el nombre del mp3';
+  setPlayingUI(false);
 });
 
 audio.addEventListener('loadedmetadata', () => {
@@ -741,6 +758,9 @@ function burstHearts(){
     setTimeout(() => h.remove(), 1300);
   }
 }
+
+// Carga la primera canción al abrir la página (sin reproducir automáticamente)
+loadTrack(0, false);
 </script>
 </body>
 </html>
