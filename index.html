@@ -642,12 +642,18 @@ function loadTrack(index, autoplay){
   curTime.textContent = '0:00';
   durTime.textContent = '0:00';
   if(autoplay){
-    const playPromise = audio.play();
-    if(playPromise !== undefined){
-      playPromise.catch(() => {
-        statusLabel.textContent = 'No se pudo reproducir "' + track.title + '"';
-      });
-    }
+    statusLabel.textContent = 'Cargando "' + track.title + '"...';
+    const tryPlay = () => {
+      const playPromise = audio.play();
+      if(playPromise !== undefined){
+        playPromise.catch(() => {
+          statusLabel.textContent = 'No se pudo reproducir "' + track.title + '"';
+        });
+      }
+    };
+    // Espera a que el archivo esté realmente listo antes de reproducir,
+    // así se evita el error de "carrera" entre load() y play().
+    audio.addEventListener('canplay', tryPlay, { once: true });
   }
 }
 
@@ -704,7 +710,18 @@ audio.addEventListener('ended', () => {
   loadTrack(nextIndex, true);
 });
 audio.addEventListener('error', () => {
-  statusLabel.textContent = 'Archivo no encontrado: revisa el nombre del mp3';
+  let msg = 'No se pudo cargar el archivo de audio';
+  const err = audio.error;
+  if(err){
+    if(err.code === err.MEDIA_ERR_SRC_NOT_SUPPORTED){
+      msg = 'Archivo no encontrado o formato no soportado: revisa el nombre del mp3';
+    } else if(err.code === err.MEDIA_ERR_NETWORK){
+      msg = 'Error de conexión al cargar el mp3';
+    } else if(err.code === err.MEDIA_ERR_DECODE){
+      msg = 'El archivo mp3 está dañado o no se pudo procesar';
+    }
+  }
+  statusLabel.textContent = msg;
   setPlayingUI(false);
 });
 
